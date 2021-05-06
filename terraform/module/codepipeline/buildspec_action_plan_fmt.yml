@@ -1,0 +1,9 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - terraform fmt --recursive --check
+      - cd ${TERRAFORM_PATH}
+      - terraform init
+      - terraform plan
