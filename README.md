@@ -2,7 +2,7 @@
 Minimum example of CodePipeline which executes terraform commands.
 
 ## Architecture
-![Architecture](./doc/architecture.drawio.png)
+![Architecture](./doc/architecture.drawio.svg)
 
 ## Code structure
 ```
