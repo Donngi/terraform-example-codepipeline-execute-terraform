@@ -47,7 +47,7 @@ resource "aws_iam_role" "codebuild_project_plan_fmt" {
 
 resource "aws_iam_policy" "codebuild_project_plan_fmt" {
   name        = "TerraformCodeBuildActionPlanAndFmtPolicy"
-  description = "Allow CodeBuild to access to CloudWatch and Artifact store"
+  description = "Allow CodeBuild to access to CloudWatch, Artifact store and backend"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -87,7 +87,34 @@ resource "aws_iam_policy" "codebuild_project_plan_fmt" {
         ]
         Effect   = "Allow"
         Resource = aws_kms_key.codepipeline_artifact.arn
-      }
+      },
+      {
+        Sid = "AllowListBackendS3"
+        Action = [
+          "s3:ListBucket",
+        ]
+        Effect   = "Allow"
+        Resource = var.backend_s3_arn
+      },
+      {
+        Sid = "AllowAccessToBackendS3"
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject",
+        ]
+        Effect   = "Allow"
+        Resource = "${var.backend_s3_arn}/*"
+      },
+      {
+        Sid = "AllowAccessToBackendDynamoDBLockTable"
+        Action = [
+          "dynamodb:GetItem",
+          "dynamodb:PutItem",
+          "dynamodb:DeleteItem"
+        ]
+        Effect   = "Allow"
+        Resource = var.backend_lock_dynamodb_arn
+      },
     ]
   })
 }

@@ -17,3 +17,11 @@ variable "artifact_store_name" {
 variable "terraform_path" {
   type = string
 }
+
+variable "backend_s3_arn" {
+  type = string
+}
+
+variable "backend_lock_dynamodb_arn" {
+  type = string
+}
