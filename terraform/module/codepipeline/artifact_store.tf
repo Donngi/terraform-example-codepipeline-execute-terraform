@@ -6,6 +6,15 @@ resource "aws_s3_bucket" "codepipeline_artifact" {
   acl    = "private"
 }
 
+resource "aws_s3_bucket_public_access_block" "codepipeline_artifact" {
+  bucket = aws_s3_bucket.codepipeline_artifact.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
 # ------------------------------------------------------------
 # KMS
 # ------------------------------------------------------------
