@@ -175,9 +175,6 @@ resource "aws_iam_policy" "codepipeline_action_source" {
         Action = [
           "s3:PutObject",
           "s3:GetObject",
-          "s3:GetObjectVersion",
-          "s3:GetBucketAcl",
-          "s3:GetBucketLocation"
         ]
         Effect = "Allow"
         Resource = [
