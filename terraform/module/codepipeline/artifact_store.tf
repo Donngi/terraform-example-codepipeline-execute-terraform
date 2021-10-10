@@ -36,6 +36,8 @@ resource "aws_kms_key" "codepipeline_artifact" {
       },
     ]
   })
+
+  enable_key_rotation = true
 }
 
 resource "aws_kms_alias" "codepipeline_artifact" {
