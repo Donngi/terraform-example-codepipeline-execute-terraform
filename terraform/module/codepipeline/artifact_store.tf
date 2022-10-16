@@ -3,7 +3,14 @@
 # ------------------------------------------------------------
 resource "aws_s3_bucket" "codepipeline_artifact" {
   bucket = var.artifact_store_name
-  acl    = "private"
+}
+
+resource "aws_s3_bucket_ownership_controls" "codepipeline_artifact" {
+  bucket = aws_s3_bucket.codepipeline_artifact.id
+
+  rule {
+    object_ownership = "BucketOwnerEnforced"
+  }
 }
 
 resource "aws_s3_bucket_public_access_block" "codepipeline_artifact" {
